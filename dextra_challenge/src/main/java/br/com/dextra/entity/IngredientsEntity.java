@@ -1,60 +1,22 @@
 package br.com.dextra.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Entidade Ingredientes
  * 
  * @author Rafael Felix de Moraes
  *
  */
+@Getter
+@Setter
+@AllArgsConstructor
 public class IngredientsEntity {
 
 	private Long id;
 	private String description;
-	private Double price;
-	
-	
-	
-	public IngredientsEntity(Long id, String description, Double price) {
-		this.id = id;
-		this.description = description;
-		this.price = price;
-	}
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	/**
-	 * @return the price
-	 */
-	public Double getPrice() {
-		return price;
-	}
-	/**
-	 * @param price the price to set
-	 */
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-	
+	private Double price;	
 	
 }
