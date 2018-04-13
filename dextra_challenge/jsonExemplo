@@ -1,0 +1,21 @@
+Json de exemplo para o serviço de lanche personalizado
+[
+    {
+		"id": 3,
+		"description": "Hamburguer de Carne",
+		"price": "3.00",
+        "quantity": 2
+    },
+    {
+		"id": 1,
+		"description": "Alface",
+		"price": "0.40",
+        "quantity": 2
+    },
+    {
+		"id": 5,
+		"description": "Queijo",
+		"price": "1.50",
+        "quantity": 2
+    }
+ ]

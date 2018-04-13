@@ -19,6 +19,6 @@ public class ProductEntity {
 	private Long code; 
 	private String description;
 	private List<IngredientsEntity> ingredients;
-	private Double totalPrice;
+	private String totalPrice;
 
 }

@@ -17,6 +17,7 @@ public class IngredientsEntity {
 
 	private Long id;
 	private String description;
-	private Double price;	
+	private String price;
+	private Integer quantity;
 	
 }
