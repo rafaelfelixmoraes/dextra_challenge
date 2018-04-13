@@ -13,6 +13,15 @@ public class ProductEntity {
 	private String description;
 	private List<IngredientsEntity> ingredients;
 	private Double totalPrice;
+	
+	
+	public ProductEntity(Long code, String description, List<IngredientsEntity> ingredients, Double totalPrice) {
+		this.code = code;
+		this.description = description;
+		this.ingredients = ingredients;
+		this.totalPrice = totalPrice;
+	}
+	
 	/**
 	 * @return the code
 	 */

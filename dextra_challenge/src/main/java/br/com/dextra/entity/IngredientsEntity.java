@@ -12,6 +12,13 @@ public class IngredientsEntity {
 	private String description;
 	private Double price;
 	
+	
+	
+	public IngredientsEntity(Long id, String description, Double price) {
+		this.id = id;
+		this.description = description;
+		this.price = price;
+	}
 	/**
 	 * @return the id
 	 */

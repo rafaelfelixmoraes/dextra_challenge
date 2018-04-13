@@ -1,22 +1,17 @@
 package br.com.dextra.controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.RestTemplate;
 
+import br.com.dextra.entity.IngredientsEntity;
 import br.com.dextra.entity.ProductEntity;
 
 /**
@@ -26,28 +21,85 @@ import br.com.dextra.entity.ProductEntity;
  *
  */
 
-@RestController("/item")
-@RequestMapping("/")
+@RestController
+@RequestMapping(value = "/lanches")
 public class ServicesController {
 
-	// Endereço da API a ser consumida pelos serviços
-	private static final String URL = "http://www.mocky.io/v2/5817803a1000007d01cc7fc9";
-		
-		
-		/**
-		 * Metodo responsavel por chamar o serviço da API e popular uma lista de Produtos
-		 * 
-		 * @return List<Produto> A lista de produtos populada
-		 */
-		private List<ProductEntity> callServiceJson() {
-			List<ProductEntity> produtos = new ArrayList<ProductEntity>();
-			try {
-				RestTemplate template = new RestTemplate();
-				ResponseEntity<ProductEntity[]> resp = template.getForEntity(URL, ProductEntity[].class);
-				produtos = Arrays.asList(resp.getBody());
-			} catch(HttpServerErrorException ex) {
-				produtos = new ArrayList<ProductEntity>();
-			}
-			return produtos;
+	private Map<Long, ProductEntity> lanches;
+
+	/**
+	 * No Construtor da classe, serão criados em memória os dados que serão usados
+	 * no desafio
+	 */
+	public ServicesController() {
+		lanches = new HashMap<Long, ProductEntity>();
+
+		// ------------- Ingredientes dos lanches ---------------------
+		IngredientsEntity alface = new IngredientsEntity(1L, "Alface", 0.40);
+		IngredientsEntity bacon = new IngredientsEntity(2L, "bacon", 2.00);
+		IngredientsEntity hamburguerCarne = new IngredientsEntity(3L, "hamburguerCarne", 3.00);
+		IngredientsEntity ovo = new IngredientsEntity(4L, "ovo", 0.80);
+		IngredientsEntity queijo = new IngredientsEntity(5L, "queijo", 1.50);
+
+		// ------------- Lanches -------------
+		// -- X-Bacon
+		List<IngredientsEntity> xBaconIngredients = new ArrayList<>();
+		xBaconIngredients.add(bacon);
+		xBaconIngredients.add(hamburguerCarne);
+		xBaconIngredients.add(queijo);
+		ProductEntity xBacon = new ProductEntity(1L, "X-Bacon", xBaconIngredients, calcultePrice(xBaconIngredients));
+
+		// -- X-Burguer
+		List<IngredientsEntity> xBurguerIngredients = new ArrayList<>();
+		xBurguerIngredients.add(hamburguerCarne);
+		xBurguerIngredients.add(queijo);
+		ProductEntity xBurguer = new ProductEntity(2L, "X-Burguer", xBurguerIngredients,
+				calcultePrice(xBurguerIngredients));
+
+		// -- X-Egg
+		List<IngredientsEntity> xEggIngredients = new ArrayList<>();
+		xEggIngredients.add(ovo);
+		xEggIngredients.add(hamburguerCarne);
+		xEggIngredients.add(queijo);
+		ProductEntity xEgg = new ProductEntity(3L, "X-Egg", xEggIngredients, calcultePrice(xEggIngredients));
+
+		// -- X-Egg Bacon
+		List<IngredientsEntity> xEggBaconIngredients = new ArrayList<>();
+		xEggBaconIngredients.add(bacon);
+		xEggIngredients.add(ovo);
+		xEggBaconIngredients.add(hamburguerCarne);
+		xEggBaconIngredients.add(queijo);
+		ProductEntity xEggBacon = new ProductEntity(4L, "X-Egg Bacon", xEggBaconIngredients,
+				calcultePrice(xEggBaconIngredients));
+
+		lanches.put(1L, xBacon);
+		lanches.put(2L, xBurguer);
+		lanches.put(3L, xEgg);
+		lanches.put(4L, xEggBacon);
+	}
+
+	/**
+	 * Serviço Rest que retorna a lista dos Lanches que estão na memória
+	 * 
+	 * @return Uma lista de {@link ProductEntity} armazenada em memória
+	 */
+	@RequestMapping(value = "/cardapio", method = RequestMethod.GET)
+	public ResponseEntity<List<ProductEntity>> listar() {
+		return new ResponseEntity<List<ProductEntity>>(new ArrayList<ProductEntity>(lanches.values()), HttpStatus.OK);
+	}
+
+	/**
+	 * Calcula o valor total do lanche a partir dos ingredientes
+	 * 
+	 * @param ingredients
+	 *            A lista de ingredientes
+	 * @return O valor total do lanche a partir dos ingredientes
+	 */
+	private Double calcultePrice(List<IngredientsEntity> ingredients) {
+		Double price = 0.0;
+		for (IngredientsEntity entity : ingredients) {
+			price += entity.getPrice();
 		}
+		return price;
+	}
 }
