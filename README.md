@@ -40,7 +40,8 @@ Inflação        | Os valores dos ingredientes são alterados com frequência 
 
 ## CRITÉRIOS DE COMPLETUDE
 
-- O projeto deve ser entregue atendendo aos seguintes critérios
+### O projeto deve ser entregue atendendo aos seguintes critérios:
+
 - O server-side deve ser desenvolvido em Java, utilizando Maven para gerenciar as dependências.
 - O client-side deve ser desenvolvido em HTML, CSS e JavaScript (apenas com jQuery, ou com algum framework se desejar)
 - Deve possuir cobertura de testes automatizados para os seguintes pontos: Valor dos lanches de cardápio, regra para cálculo de preço e promoções.
