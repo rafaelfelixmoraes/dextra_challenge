@@ -66,7 +66,7 @@ public class ServicesController {
 		// -- X-Egg Bacon
 		List<IngredientsEntity> xEggBaconIngredients = new ArrayList<>();
 		xEggBaconIngredients.add(bacon);
-		xEggIngredients.add(ovo);
+		xEggBaconIngredients.add(ovo);
 		xEggBaconIngredients.add(hamburguerCarne);
 		xEggBaconIngredients.add(queijo);
 		ProductEntity xEggBacon = new ProductEntity(4L, "X-Egg Bacon", xEggBaconIngredients,
