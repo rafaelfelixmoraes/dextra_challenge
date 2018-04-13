@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,10 +37,10 @@ public class ServicesController {
 
 		// ------------- Ingredientes dos lanches ---------------------
 		IngredientsEntity alface = new IngredientsEntity(1L, "Alface", 0.40);
-		IngredientsEntity bacon = new IngredientsEntity(2L, "bacon", 2.00);
-		IngredientsEntity hamburguerCarne = new IngredientsEntity(3L, "hamburguerCarne", 3.00);
-		IngredientsEntity ovo = new IngredientsEntity(4L, "ovo", 0.80);
-		IngredientsEntity queijo = new IngredientsEntity(5L, "queijo", 1.50);
+		IngredientsEntity bacon = new IngredientsEntity(2L, "Bacon", 2.00);
+		IngredientsEntity hamburguerCarne = new IngredientsEntity(3L, "Hamburguer de Carne", 3.00);
+		IngredientsEntity ovo = new IngredientsEntity(4L, "Ovo", 0.80);
+		IngredientsEntity queijo = new IngredientsEntity(5L, "Queijo", 1.50);
 
 		// ------------- Lanches -------------
 		// -- X-Bacon
@@ -69,13 +70,20 @@ public class ServicesController {
 		xEggBaconIngredients.add(ovo);
 		xEggBaconIngredients.add(hamburguerCarne);
 		xEggBaconIngredients.add(queijo);
-		ProductEntity xEggBacon = new ProductEntity(4L, "X-Egg Bacon", xEggBaconIngredients,
-				calcultePrice(xEggBaconIngredients));
+		ProductEntity xEggBacon = new ProductEntity(4L, "X-Egg Bacon", xEggBaconIngredients, calcultePrice(xEggBaconIngredients));
+
+		// -- X-Salada
+		List<IngredientsEntity> xSaladaIngredients = new ArrayList<>();
+		xSaladaIngredients.add(alface);
+		xSaladaIngredients.add(hamburguerCarne);
+		xSaladaIngredients.add(queijo);
+		ProductEntity xSalada = new ProductEntity(5L, "X-Salada", xSaladaIngredients, calcultePrice(xSaladaIngredients));
 
 		lanches.put(1L, xBacon);
 		lanches.put(2L, xBurguer);
 		lanches.put(3L, xEgg);
 		lanches.put(4L, xEggBacon);
+		lanches.put(5L, xSalada);
 	}
 
 	/**
@@ -86,6 +94,24 @@ public class ServicesController {
 	@RequestMapping(value = "/cardapio", method = RequestMethod.GET)
 	public ResponseEntity<List<ProductEntity>> listar() {
 		return new ResponseEntity<List<ProductEntity>>(new ArrayList<ProductEntity>(lanches.values()), HttpStatus.OK);
+	}
+
+	/**
+	 * Serviço que retorna um Lanche a partir do seu ID
+	 * 
+	 * @param id
+	 *            O ID do lanche
+	 * @return Um objetivo do tipo {@link ProductEntity} armazenado em memória
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<ProductEntity> buscar(@PathVariable("id") Long id) {
+		ProductEntity lanche = lanches.get(id);
+
+		if (lanche == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<ProductEntity>(lanche, HttpStatus.OK);
 	}
 
 	/**
