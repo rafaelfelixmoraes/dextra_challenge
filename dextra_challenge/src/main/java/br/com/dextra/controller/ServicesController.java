@@ -9,7 +9,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,9 +29,16 @@ import br.com.dextra.entity.ProductEntity;
 @RestController
 @RequestMapping(value = "/lanches")
 public class ServicesController {
+	
+	private static final Double Light_Descount = 0.10;
 
 	private Map<Long, ProductEntity> lanches;
 	private static DecimalFormat df = new DecimalFormat("#0.00#", new DecimalFormatSymbols(Locale.US));
+	private static IngredientsEntity alface;
+	private static IngredientsEntity bacon;
+	private static IngredientsEntity hamburguerCarne;
+	private static IngredientsEntity ovo;
+	private static IngredientsEntity queijo;
 
 	/**
 	 * No Construtor da classe, serão criados em memória os dados que serão usados
@@ -42,11 +48,11 @@ public class ServicesController {
 		lanches = new HashMap<Long, ProductEntity>();
 
 		// ------------- Ingredientes dos lanches ---------------------
-		IngredientsEntity alface = new IngredientsEntity(1L, "Alface", df.format(0.40), 1);
-		IngredientsEntity bacon = new IngredientsEntity(2L, "Bacon", df.format(2.00), 1);
-		IngredientsEntity hamburguerCarne = new IngredientsEntity(3L, "Hamburguer de Carne", df.format(3.00), 1);
-		IngredientsEntity ovo = new IngredientsEntity(4L, "Ovo", df.format(0.80), 1);
-		IngredientsEntity queijo = new IngredientsEntity(5L, "Queijo", df.format(1.50), 1 );
+		alface = new IngredientsEntity(1L, "Alface", df.format(0.40), 1);
+		bacon = new IngredientsEntity(2L, "Bacon", df.format(2.00), 1);
+		hamburguerCarne = new IngredientsEntity(3L, "Hamburguer de Carne", df.format(3.00), 1);
+		ovo = new IngredientsEntity(4L, "Ovo", df.format(0.80), 1);
+		queijo = new IngredientsEntity(5L, "Queijo", df.format(1.50), 1 );
 
 		// ------------- Lanches -------------
 		// -- X-Bacon
@@ -120,32 +126,50 @@ public class ServicesController {
 	
 	/**
 	 * Serviço que retorna o lanche personalizado de acordo com os ingredientes adicionados
-	 * @param id O Id do lanche no cardapio
 	 * @param ingredients A lista de ingredientes do lanche
-	 * @return Um objetivo do tipo {@link ProductEntity} armazenado em memória
+	 * @return Um objetivo do tipo {@link ProductEntity} representando o lanche personalizado
 	 */
-	@RequestMapping(value = "/{id}/personalizado", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	ResponseEntity<ProductEntity> custom(@PathVariable("id") Long id, @RequestBody List<IngredientsEntity> ingredients) {
-		ProductEntity lanche = lanches.get(id);
+	@RequestMapping(value = "/personalizado", method = RequestMethod.POST)
+	ResponseEntity<ProductEntity> custom(@RequestBody List<IngredientsEntity> ingredients) {
+		ProductEntity lanche = new ProductEntity();
+		lanche.setCode(0L);
+		lanche.setDescription("Lanche Personalizado");
 		lanche.setIngredients(ingredients);
-		List<IngredientsEntity> newIngredients = lanche.getIngredients();
-		lanche.setTotalPrice(df.format(calcultePrice(newIngredients)));
+		lanche.setTotalPrice(df.format(calcultePrice(ingredients)));
 		
 		return new ResponseEntity<ProductEntity>(lanche, HttpStatus.OK);
 	}
 
 	/**
-	 * Calcula o valor total do lanche a partir dos ingredientes
+	 * Calcula o valor total do lanche a partir dos ingredientes, analisando se participa de alguma promoção
 	 * 
 	 * @param ingredients  A lista de ingredientes
 	 * @return O valor total do lanche a partir dos ingredientes
 	 */
-	private Double calcultePrice(List<IngredientsEntity> ingredients) {
+	public Double calcultePrice(List<IngredientsEntity> ingredients) {
 		Double price = 0.00;
 		Double total = 0.00;
+		Boolean haveAlface = false;
+		Boolean haveBacon = false;
+		Boolean hasPromotion = false;
 		for (IngredientsEntity entity : ingredients) {
+			if((entity.getId() == hamburguerCarne.getId() || entity.getId() == queijo.getId()) && entity.getQuantity() >= 3) {
+				Integer newQuantity = entity.getQuantity() / 3;
+				newQuantity += newQuantity;
+				entity.setQuantity(newQuantity);
+				hasPromotion = true;
+			}
+			if(entity.getId() == alface.getId()) {
+				haveAlface = true;
+			}
+			if(entity.getId() == bacon.getId()) {
+				haveBacon = true;
+			}
 			price = Double.parseDouble(entity.getPrice()) * entity.getQuantity();
 			total += price;
+		}
+		if(!hasPromotion && (haveAlface && !haveBacon)) {
+			total = total - (total * Light_Descount);
 		}
 		return total;
 	}
