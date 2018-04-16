@@ -4,6 +4,7 @@
 .selectric-wrapper {
   position: relative;
   cursor: pointer;
+  width: 300px;
 }
 
 .selectric-responsive {

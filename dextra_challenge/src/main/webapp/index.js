@@ -13,8 +13,8 @@ $(document).ready(function() {
    			url: "http://localhost:8080/lanches/" + valorEscolhido,
    			dataType: 'json',
    			success: function(data){
-   				var lanche = "Lanche Escolhido: " + data.description + ", Preço: " + data.totalPrice;        
-     			alert(lanche);
+   				//var lanche = "Lanche Escolhido: " + data.description + ", Preço: " + data.totalPrice;        
+     			$("#valorTotal").text(data.totalPrice);
    			}
 		});
    });
