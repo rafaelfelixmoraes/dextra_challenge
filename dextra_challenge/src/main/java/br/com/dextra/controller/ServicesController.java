@@ -161,8 +161,7 @@ public class ServicesController {
 			}
 			if(entity.getId() == alface.getId()) {
 				haveAlface = true;
-			}
-			if(entity.getId() == bacon.getId()) {
+			} else if(entity.getId() == bacon.getId()) {
 				haveBacon = true;
 			}
 			price = Double.parseDouble(entity.getPrice()) * entity.getQuantity();
