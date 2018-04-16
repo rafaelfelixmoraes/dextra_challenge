@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="index.css">
 	<script>
   		$(function() {
-  			$('select').selectric();
+  			$('#sel1').selectric();
 		});
   </script>
 	<title>Desafio Dextra</title>
@@ -26,9 +26,32 @@
     	<option value='5'>X-Salada</option>
 	</select>
 
-	<br><strong>Ou Customize o seu lanche escolhendo os ingredientes: </strong>
-	<br><br>
-
-	<br><hr id="total"><h3>Valor Total: R$ <label id="valorTotal"> </label></h3><br><br>
+	<br><strong>Ou Customize o seu lanche escolhendo os ingredientes: </strong><br><br>
+    
+    <div id="parent">
+        <div id="child1">
+            <input type="checkbox" id="alface" value="1"> Alface<br>
+            <input type="checkbox" id="bacon" value="2"> Bacon<br>
+            <input type="checkbox" id="hamburguerCarne" value="3"> Hamburguer de Carne<br>
+            <input type="checkbox" id="ovo" value="4"> Ovo<br>
+            <input type="checkbox" id="queijo" value="5"> Queijo<br>
+            
+            <br><hr id="total"><h3>Valor Total: R$ <label id="valorTotal"> </label></h3><br><br>
+        </div>
+        <div id="child2">
+            <select id="qtdAlface">
+		       <option value="selecione" selected="selected">Selecione...</option>
+    	       <option value='1'>1</option>
+    	       <option value='2'>2</option>
+    	       <option value='3'>3</option>
+    	       <option value='4'>4</option>
+    	       <option value='5'>5</option>
+               <option value='6'>6</option>
+               <option value='7'>7</option>
+               <option value='8'>8</option>
+               <option value='9'>9</option>
+	       </select>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,4 +1,13 @@
 $(document).ready(function() {
+    $('#bacon').change(function(){
+        if($("#bacon").is(":checked")){
+            var s = $("")
+            $("#child2").append("<select id='qtdBacon'></select>");
+            $("#qtdBacon").append("<option value='selecione' selected='selected'>Selecione...</option>");
+        } else {
+            $("#qtdBacon").remove();
+        }
+    });
    // declaração da variável
    var valorEscolhido;
  
