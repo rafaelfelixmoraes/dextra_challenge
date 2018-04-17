@@ -126,8 +126,9 @@ $(document).ready(function() {
          	success: function(data,status){
             	  $("#valorTotal").text(data.totalPrice);
          	},
-         	error(jqXHR, textStatus, errorThrown){
-            	 alert("Erro ao tentar calcular o preço.")
+         	error: function(jqXHR, status, errorThrown){
+         		 console.log(jqXHR);
+            	 alert("Erro ao tentar calcular o preço - " + status.code)
          	}
     	});
     }
