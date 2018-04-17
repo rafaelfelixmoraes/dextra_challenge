@@ -15,6 +15,12 @@ import br.com.dextra.controller.ServicesController;
 import br.com.dextra.entity.IngredientsEntity;
 import br.com.dextra.entity.ProductEntity;
 
+/**
+ * Classe de Testes Unitários para validar os pontos solicitados no desafio
+ * 
+ * @author Rafael Felix de Moraes
+ *
+ */
 public class ProductTests {
 	private ServicesController servicesController;
 	private DecimalFormat df;

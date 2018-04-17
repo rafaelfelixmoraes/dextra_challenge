@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * Projeto do Desafio Dextra
+ * <strong>Projeto do Desafio Dextra</strong><br><br>
+ * 
+ * Classe MAIN de execução da aplicação
  * 
  * @author Rafael Felix de Moraes
  *
@@ -13,10 +15,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"br.com.dextra.controller"})
-public class App {
+public class LanchoneteApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(App.class, args);
+		SpringApplication.run(LanchoneteApp.class, args);
 	}
 
 }

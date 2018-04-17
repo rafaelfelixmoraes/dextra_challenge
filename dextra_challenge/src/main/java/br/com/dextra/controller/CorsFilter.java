@@ -9,7 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
+/**
+ * Classe que injeta as dependências necessárias para consumo dos serviços
+ * 
+ * @author Rafael Felix de Moraes
+ *
+ */
 @Component
 public class CorsFilter extends OncePerRequestFilter {
 
