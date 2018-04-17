@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	var jsonObject = [];
 	$('#alface').change(function(){
         if($("#alface").is(":checked")){
             $("#child2").append("<select id='qtdAlface'></select>");
@@ -72,13 +71,65 @@ $(document).ready(function() {
     });
 
     clickButton = function (){
-    	var item = {};
-           item["id"] = parseInt($("#alface").val());
-           item["description"] = "Alface";
-           item["price"] = "0.40";
-           item["quantity"] = parseInt($("#qtdAlface option:selected").val());
-           jsonObject.push(item);
+    	var jsonObject = [];
+    	if($("#alface").is(":checked")){
+    		var item = {};
+           	item["id"] = parseInt($("#alface").val());
+           	item["description"] = "Alface";
+           	item["price"] = "0.40";
+           	item["quantity"] = parseInt($("#qtdAlface option:selected").val());
+           	jsonObject.push(item);
+    	}
+    	if($("#bacon").is(":checked")){
+    		var item = {};
+           	item["id"] = parseInt($("#bacon").val());
+           	item["description"] = "Bacon";
+           	item["price"] = "2.00";
+           	item["quantity"] = parseInt($("#qtdBacon option:selected").val());
+           	jsonObject.push(item);
+    	}
+    	if($("#hamburguerCarne").is(":checked")){
+    		var item = {};
+           	item["id"] = parseInt($("#hamburguerCarne").val());
+           	item["description"] = "Hamburguer de Carne";
+           	item["price"] = "3.00";
+           	item["quantity"] = parseInt($("#qtdHamburguer option:selected").val());
+           	jsonObject.push(item);
+    	}
+    	if($("#ovo").is(":checked")){
+    		var item = {};
+           	item["id"] = parseInt($("#ovo").val());
+           	item["description"] = "Ovo";
+           	item["price"] = "0.80";
+           	item["quantity"] = parseInt($("#qtdOvo option:selected").val());
+           	jsonObject.push(item);
+    	}
+    	if($("#queijo").is(":checked")){
+    		var item = {};
+           	item["id"] = parseInt($("#queijo").val());
+           	item["description"] = "Queijo";
+           	item["price"] = "1.50";
+           	item["quantity"] = parseInt($("#qtdQueijo option:selected").val());
+           	jsonObject.push(item);
+    	}
     	console.log(jsonObject);
+    	callService(jsonObject);
+    }
+
+    callService = function(jsonObject){
+    	$.ajax({
+        	url: "http://localhost:8080/lanches/personalizado",
+        	method: "POST",
+        	data: JSON.stringify(jsonObject),
+        	dataType: 'json',
+        	contentType: "application/json",
+         	success: function(data,status){
+            	  $("#valorTotal").text(data.totalPrice);
+         	},
+         	error(jqXHR, textStatus, errorThrown){
+            	 alert("Erro ao tentar calcular o preço.")
+         	}
+    	});
     }
    // declaração da variável
    var valorEscolhido;
