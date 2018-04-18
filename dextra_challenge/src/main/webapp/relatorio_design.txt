@@ -1,0 +1,9 @@
+﻿Relatório sobre o Design do Código do Projeto
+
+ O projeto foi construido utilizando as práticas basicas do Design Patterns e orientação a objetos do java 8, para deixar o código mais limpo e organizado,  facilitando o entendimento, a manutenção e a evolução. 
+ 
+ - Utilização do javadoc, afim de documentar todo o código do sistema, facilitando a visualização e o entendimento das funcionalidades e objetivos das funções/métodos
+ - Utilização do método DRY para evitar repetição desnecessária de código
+ - Utilização do padrão Camel Case para criação de Métodos, Funções, Classes e Variáveis
+ - Indentação do código de forma clara e organizada utilizando padrão java.
+ 
