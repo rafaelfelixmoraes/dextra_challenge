@@ -2,6 +2,40 @@
 
 Repositório com o projeto do ambiente para o desafio Dextra.
 
+Projeto desenvolvido com Spring Boot e Java 8 utilizando Maven para gerenciar as dependências no Back End, e no Front End utilizando HTML/CSS com jQuery para consumir os serviços criados.
+
+O Relatório de justificativas para escolha do design de código está dentro da raiz do projeto, junto com esse arquivo README.md
+
+### Métodos
+GET - http://localhost:8080/lanches/cardapio
+<br>GET - http://localhost:8080/lanches/{id}
+<br>POST - http://localhost:8080/lanches/personalizado
+
+Para executar o projeto, siga os seguintes passos:
+
+- Realize o clone do repositório e dentro do Eclipse acesse Arquivo/Importar, selecione a opção Maven/Existing Maven Projects, na próxima tela aponte para o diretório para onde foi feito o clone do projeto do git, e no final clique em Finalizar. 
+
+- Caso o projeto apresente erro de compilação, basta clicar com o botão direto sobre o projeto e teclar alt+F5, na tela que aparece, clique em OK. Isso fará com que o projeto Maven realize novamente o build do projeto, baixando as dependências que faltarem.
+
+- Abra o package br.com.dextra.app; 
+
+- Clique na classe LanchoneteApp.java 
+
+- Execute o programa como se fosse um aplicativo Java, não é necessário instalar o Tomcat pois o Spring Boot já possui ele embutido. 
+
+- Clique com o botão direito do mouse  e navegue para Run As > Java Application $ No console, Aguarde o servidor subir, enquanto isso acesse a pasta com os arquivos do front-end, que se localiza no caminho {caminho_projeto_baixado\src\main\webapp}, e clique duas vezes no arquivo index.html para abrir o arquivo no navegador.
+
+Para testar o projeto, pelos testes unitários ou pelo front end, siga os passos a seguir:
+
+Testes unitários - JUnit
+- No eclipse, dentro de src/test/java, acesso o arquivo ProductTests.java, que fica no pacote br.com.dextra.tests
+- É possivel executar todos os testes de uma vez, clicando com o botão direto sobre o arquivo ProductTests.java, navegar até a opção Run As, e selecionar a opção JUnit Test. Nesse momento será aberta a aba com o resultado da execução dos testes.
+- Também é possivel executar um teste específico que existe dentro da classe, para isso basta seleciona o nome do teste (sem os parênteses), clicar com o botão direto, navegar até a opção Run As, e selecionar a opção JUnit Test. Também será exibida a aba com o resultado da execução do teste.
+
+Teste utilizando a interface do Front End
+- Com o arquivo index.html aberto no navegador, é possível selecionar um lanche do cardápio utilizando o combo box, e com isso ao selecionar o lanche, o preço será exibido abaixo automáticamente no campo Valor Total. Isso porque, ao selecionar um lanche, o front end realiza a chamada do serviço correspondente no back, passando o código do lanche no cardápio como parâmetro.
+- Também é possível customizar um lanche, sleecionando através dos checkboxes os ingredientes desejados. Ao selecionar um ingrediente, um combo box é  exibido ao lado, para que seja possível selecionar a quantidade desejada. Para calcular o valor total do anche personalizado, após selecionar os ingredientes, basta clicar no botão logo abaixo, "Calcular o Valor".
+
 ## Descrição
 
 Somos uma startup do ramo de alimentos e precisamos de uma aplicação web para gerir nosso negócio. Nossa especialidade é a venda de lanches, de modo que alguns lanches são opções de cardápio e outros podem conter ingredientes personalizados.
@@ -58,9 +92,9 @@ Você deve entregar um conjunto de artefatos, de acordo com o nível de comple
 - [ ] Instruções para executar.
 
 <b>Médio:</b>
-- [ ] Implementação dos requisitos;
-- [ ] Relatório simples de justificativas para escolha do design de código;
-- [ ] Instruções para executar;
+- [X] Implementação dos requisitos;
+- [X] Relatório simples de justificativas para escolha do design de código;
+- [X] Instruções para executar;
 
 <b>Difícil:</b>
 - [ ] Implementação dos requisitos;
