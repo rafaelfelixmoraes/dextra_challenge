@@ -4,7 +4,7 @@ Repositório com o projeto do ambiente para o desafio Dextra.
 
 Projeto desenvolvido com Spring Boot e Java 8 utilizando Maven para gerenciar as dependências no Back End, e no Front End utilizando HTML/CSS com jQuery para consumir os serviços criados.
 
-O Relatório de justificativas para escolha do design de código está dentro da raiz do projeto, junto com esse arquivo README.md
+O Relatório de justificativas para escolha do design de código está dentro da raiz do projeto.
 
 ### Métodos
 GET - http://localhost:8080/lanches/cardapio
